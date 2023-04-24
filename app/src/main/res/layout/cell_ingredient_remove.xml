@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/ingredient_background"
+    android:elevation="3dp"
+    android:gravity="center_vertical"
+    android:paddingStart="@dimen/default_padding"
+    android:paddingTop="6dp"
+    android:paddingEnd="@dimen/default_padding"
+    android:paddingBottom="6dp">
+
+    <TextView
+        android:id="@+id/name_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#DE000000"
+        android:textSize="14sp"
+        tools:text="chicken" />
+
+    <ImageView
+        android:id="@+id/remove_btn"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="10dp"
+        android:padding="5dp"
+        android:src="@drawable/ic_remove_ingredient" />
+
+</LinearLayout>

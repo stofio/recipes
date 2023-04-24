@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_ingredients">
+
+    <fragment
+        android:id="@+id/navigation_ingredients"
+        android:name="com.recipegenerator.ui.ingredients.IngredientsFragment"
+        android:label="fragment_ingredients"
+        tools:layout="@layout/fragment_ingredients">
+        <action
+            android:id="@+id/action_navigation_ingredients_to_recipeListFragment"
+            app:destination="@id/navigation_recipe_list"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_recipe_list"
+        android:name="com.recipegenerator.ui.recipes.list.RecipeListFragment"
+        android:label="RecipeListFragment"
+        tools:layout="@layout/fragment_recipe_list">
+        <action
+            android:id="@+id/action_recipeListFragment_to_recipeDetailsFragment"
+            app:destination="@id/recipeDetails"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <argument
+            android:name="ingredients"
+            android:defaultValue=""
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/recipeDetails"
+        android:name="com.recipegenerator.ui.recipes.details.RecipeDetailsFragment"
+        android:label="RecipeDetailsFragment"
+        tools:layout="@layout/fragment_recipe_details">
+        <argument
+            android:name="recipe"
+            app:argType="com.recipegenerator.data.model.Recipe" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_saved"
+        android:name="com.recipegenerator.ui.recipes.saved.SavedRecipesFragment"
+        android:label="fragment_saved_recipes"
+        tools:layout="@layout/fragment_saved_recipes">
+        <action
+            android:id="@+id/action_savedRecipesFragment_to_recipeDetails"
+            app:destination="@id/recipeDetails" />
+    </fragment>
+</navigation>

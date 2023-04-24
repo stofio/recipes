@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- General -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Common -->
+    <color name="primary">#121212</color>
+    <color name="background">#F1F3F4</color>
+    <color name="caption">#111111</color>
+    <color name="empty">#DD585858</color>
+
+    <!-- Splash -->
+    <color name="splash_title">#D9000000</color>
+
+    <!-- Ingredients -->
+    <color name="ingredients_bottom_start">#FFD64D</color>
+    <color name="ingredients_bottom_end">#FFCE00</color>
+    <color name="ingredients_input_hint">#7D7D7D</color>
+
+</resources>
