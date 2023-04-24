@@ -29,7 +29,8 @@ class RecipeListViewModel @Inject constructor(
     fun isRecipesLoaded() =
         recipesData.value?.status == Status.SUCCESS && recipesData.value?.data != null
 
-    fun loadRecipes(ingredients: String) = viewModelScope.launch(Dispatchers.IO) {
+    fun loadRecipes() = viewModelScope.launch(Dispatchers.IO) {
+        val ingredients = GlobalDataHolder.ingredients
         if (ingredients.isEmpty()) {
             val lastRecipes = appSettings.getLastRecipes()
             if (lastRecipes != null) {
@@ -47,6 +48,7 @@ class RecipeListViewModel @Inject constructor(
                 val json = response.choices[0].text
                 val recipes = parseRecipes(json)
                 appSettings.setLastRecipes(recipes)
+                GlobalDataHolder.ingredients = ""
                 recipesData.postValue(ViewModelState.success(recipes))
             } catch (e: Exception) {
                 e.printStackTrace()

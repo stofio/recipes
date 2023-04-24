@@ -5,24 +5,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
+import com.recipegenerator.MainActivity
 import com.recipegenerator.R
 import com.recipegenerator.data.model.Recipe
 import com.recipegenerator.databinding.FragmentRecipeDetailsBinding
 import com.recipegenerator.domain.extensions.confirmDialog
 import com.recipegenerator.domain.extensions.setIngredients
+import com.recipegenerator.domain.util.ARG_RECIPE
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RecipeDetailsFragment : Fragment() {
 
+    companion object {
+        fun newInstance(recipe: Recipe) = RecipeDetailsFragment().apply {
+            arguments = bundleOf(ARG_RECIPE to recipe)
+        }
+    }
+
     private var _binding: FragmentRecipeDetailsBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<RecipeDetailsViewModel>()
-    private val args by navArgs<RecipeDetailsFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -34,12 +40,12 @@ class RecipeDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         initViews()
         initViewModel()
-        viewModel.recipe = args.recipe
+        viewModel.recipe = arguments?.getParcelable(ARG_RECIPE)
     }
 
     private fun initViews() = with(binding) {
         backBtn.setOnClickListener {
-            findNavController().popBackStack()
+            (requireActivity() as MainActivity).onBackPressed()
         }
         saveBtn.setOnClickListener {
             onSaveRecipeClicked()

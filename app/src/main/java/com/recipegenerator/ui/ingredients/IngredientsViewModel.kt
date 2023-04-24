@@ -21,7 +21,6 @@ class IngredientsViewModel @Inject constructor(
     var autocompleteIngredients = mutableListOf<String>()
 
     init {
-        ingredients += listOf("olive oil", "pasta", "tomatoes", "potatoes", "salt") // FIXME: debug
         ingredientsData.postValue(ingredients)
         auth.signInAnonymously()
     }

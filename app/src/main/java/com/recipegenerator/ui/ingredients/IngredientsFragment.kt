@@ -7,15 +7,16 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.activityViewModels
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import com.recipegenerator.MainActivity
 import com.recipegenerator.R
 import com.recipegenerator.databinding.FragmentIngredientsBinding
 import com.recipegenerator.domain.extensions.hideKeyboard
+import com.recipegenerator.domain.util.GlobalDataHolder
 import com.recipegenerator.ui.common.SpacingItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,7 +25,7 @@ class IngredientsFragment : Fragment() {
 
     private var _binding: FragmentIngredientsBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by viewModels<IngredientsViewModel>()
+    private val viewModel by activityViewModels<IngredientsViewModel>()
     private val adapter = IngredientsAdapter(::onRemoveIngredientClicked)
 
     override fun onCreateView(
@@ -95,11 +96,8 @@ class IngredientsFragment : Fragment() {
     private fun onGenerateRecipesClicked() {
         if (viewModel.ingredients.isNotEmpty()) {
             hideKeyboard()
-            val action =
-                IngredientsFragmentDirections.actionNavigationIngredientsToRecipeListFragment(
-                    viewModel.ingredients.joinToString()
-                )
-            findNavController().navigate(action)
+            GlobalDataHolder.ingredients = viewModel.ingredients.joinToString()
+            (requireActivity() as MainActivity).selectTab(R.id.navigation_recipe_list)
         }
     }
 

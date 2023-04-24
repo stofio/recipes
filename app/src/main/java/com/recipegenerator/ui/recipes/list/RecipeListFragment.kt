@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
+import com.recipegenerator.MainActivity
 import com.recipegenerator.R
 import com.recipegenerator.data.model.Recipe
 import com.recipegenerator.databinding.FragmentRecipeListBinding
 import com.recipegenerator.ui.common.RecipeAdapter
 import com.recipegenerator.ui.common.Status
+import com.recipegenerator.ui.recipes.details.RecipeDetailsFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,7 +22,6 @@ class RecipeListFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel by viewModels<RecipeListViewModel>()
     private val adapter = RecipeAdapter(::onRecipeClicked)
-    private val args by navArgs<RecipeListFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,7 +36,7 @@ class RecipeListFragment : Fragment() {
         initViews()
         initViewModel()
         if (!viewModel.isRecipesLoaded()) {
-            viewModel.loadRecipes(args.ingredients)
+            viewModel.loadRecipes()
         } else {
             showRecipes(viewModel.recipesData.value?.data)
         }
@@ -58,9 +57,15 @@ class RecipeListFragment : Fragment() {
     }
 
     private fun onRecipeClicked(recipe: Recipe) {
-        val action =
-            RecipeListFragmentDirections.actionRecipeListFragmentToRecipeDetailsFragment(recipe)
-        findNavController().navigate(action)
+        val fragment = RecipeDetailsFragment.newInstance(recipe)
+        (requireActivity() as MainActivity).showFragment(
+            fragment = fragment,
+            addToBackStack = true,
+            enterAnim = R.anim.slide_in_right,
+            exitAnim = R.anim.slide_out_left,
+            popEnterAnim = R.anim.slide_in_left,
+            popExitAnim = R.anim.slide_out_right
+        )
     }
 
     private fun showProgress() = with(binding) {

@@ -6,10 +6,13 @@ const val BASE_URL = "https://api.openai.com/v1/"
 const val SPLASH_TIME = 2000L
 const val AUTOCOMPLETE_INGREDIENTS_FILENAME = "ingredients.csv"
 
-// Settings
+// Setting Keys
 const val KEY_LAST_RECIPES = "key_last_recipes"
 
-// Firebase
+// Bundle Arguments
+const val ARG_RECIPE = "arg_recipe"
+
+// Firebase Fields
 const val COLLECTION_RECIPES = "recipes"
 const val DEFAULT_USER_ID = "default"
 const val FIELD_USER = "user"

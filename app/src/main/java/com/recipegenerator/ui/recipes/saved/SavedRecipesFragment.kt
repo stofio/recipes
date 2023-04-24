@@ -6,12 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import com.recipegenerator.MainActivity
 import com.recipegenerator.R
 import com.recipegenerator.data.model.Recipe
 import com.recipegenerator.databinding.FragmentSavedRecipesBinding
 import com.recipegenerator.ui.common.RecipeAdapter
 import com.recipegenerator.ui.common.Status
+import com.recipegenerator.ui.recipes.details.RecipeDetailsFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -52,9 +53,15 @@ class SavedRecipesFragment : Fragment() {
     }
 
     private fun onRecipeClicked(recipe: Recipe) {
-        val action =
-            SavedRecipesFragmentDirections.actionSavedRecipesFragmentToRecipeDetails(recipe)
-        findNavController().navigate(action)
+        val fragment = RecipeDetailsFragment.newInstance(recipe)
+        (requireActivity() as MainActivity).showFragment(
+            fragment = fragment,
+            addToBackStack = true,
+            enterAnim = R.anim.slide_in_right,
+            exitAnim = R.anim.slide_out_left,
+            popEnterAnim = R.anim.slide_in_left,
+            popExitAnim = R.anim.slide_out_right
+        )
     }
 
     private fun showProgress() = with(binding) {
